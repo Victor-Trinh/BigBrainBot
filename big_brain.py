@@ -43,6 +43,8 @@ async def on_message(message):
         return
     
     if message.content.startswith('$predict'):
+        if message.content == 'predict':
+            await message.channel.send("Send a headline! \"$predict <headline>\"")
         sample = message.content.replace("$predict", "")
         v = c.transform([sample])
         result = t.predict(v)
@@ -53,7 +55,9 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    load_data("big_brain/clean_real.txt", "big_brain/clean_fake.txt")
+    import os
+    print(os.listdir())
+    load_data("clean_real.txt", "clean_fake.txt")
     client.run('NjI5NTQ3MTcwMjczNjg5NjIw.XZbWIA.asGH2aR9rXxhBHtsfOBD_kZvglg')
     
     print("got here")
