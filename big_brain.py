@@ -1,9 +1,8 @@
 import discord
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
-from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 import random
-from numpy import array, log2, where
+
 
 c = CountVectorizer()
 client = discord.Client()
