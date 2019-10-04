@@ -26,8 +26,8 @@ def load_data(fileName1, fileName2):
         fakeLines.append(line.strip("\n"))
         line=f2.readline()
 
-    realsolutions = ["real" for i in range(len(realLines))]
-    fakesolutions = ["fake" for i in range(len(fakeLines))]
+    realsolutions = ["REAL" for i in range(len(realLines))]
+    fakesolutions = ["FAKE" for i in range(len(fakeLines))]
 
     train_vecs = c.fit_transform(realLines + fakeLines)
     t.fit(train_vecs, realsolutions + fakesolutions)
@@ -45,20 +45,24 @@ async def on_message(message):
     if message.content.startswith('$predict'):
         if message.content == 'predict':
             await message.channel.send("Send a headline! \"$predict <headline>\"")
+
         sample = message.content.replace("$predict", "")
         v = c.transform([sample])
         result = t.predict(v)
-        await message.channel.send("The headline is {}. Ready for next headline!".format(result[0]))
+        emote = ":negative_squared_cross_mark:" if result == "FAKE" else ":white_check_mark:"
+        m = "This headline is {} {}. \n Ready for next headline!".format(result[0], emote)
+        await message.channel.send(m)
+
     if message.content.startswith('$about'):
         await message.channel.send("```I predict if US political headlines are real or fake! (with an accuracy of around 70-80%) \
             \nTry it out! \"$predict <headline>\"```")
 
 
 if __name__ == "__main__":
-    import os
-    print(os.listdir())
     load_data("clean_real.txt", "clean_fake.txt")
+    # https://www.kaggle.com/mrisdal/fake-news/data
+    # https://www.kaggle.com/therohk/million-headlines 
     client.run('NjI5NTQ3MTcwMjczNjg5NjIw.XZbWIA.asGH2aR9rXxhBHtsfOBD_kZvglg')
     
-    print("got here")
+    print("Exiting.")
     
