@@ -61,7 +61,7 @@ if __name__ == "__main__":
     load_data("clean_real.txt", "clean_fake.txt")
     # https://www.kaggle.com/mrisdal/fake-news/data
     # https://www.kaggle.com/therohk/million-headlines 
-    client.run('NjI5NTQ3MTcwMjczNjg5NjIw.XZbWIA.asGH2aR9rXxhBHtsfOBD_kZvglg')
+    client.run('PLACEHOLDER')
     
     print("Exiting.")
     
